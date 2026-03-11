@@ -11,7 +11,25 @@ import { PROFILE } from "../../../data/profile";
     <footer class="footer">
       <div class="container footer-inner">
         <div class="footer-brand">
-          <a class="footer-logo" routerLink="/" aria-label="Home">DA.</a>
+          <a class="footer-logo" routerLink="/" aria-label="Cod-a – Home">
+            <svg
+              class="logo-icon"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M14 4l-4 16" />
+              <path d="M9 8l-4 4 4 4" />
+              <path d="M15 8l4 4-4 4" />
+            </svg>
+            Cod-a
+          </a>
           <p class="footer-tagline">{{ tagline }}</p>
         </div>
 
@@ -114,126 +132,7 @@ import { PROFILE } from "../../../data/profile";
       </div>
     </footer>
   `,
-  styles: [
-    `
-      .footer {
-        margin-top: auto;
-        padding: var(--space-12) 0 var(--space-8);
-        border-top: 1px solid var(--color-border);
-        background: var(--color-bg);
-      }
-      .footer-inner {
-        display: grid;
-        grid-template-columns: 1fr auto auto;
-        gap: var(--space-12);
-        align-items: start;
-        margin-bottom: var(--space-10);
-      }
-      .footer-logo {
-        font-family: var(--font-display);
-        font-size: 1.375rem;
-        font-weight: 700;
-        color: var(--color-text);
-        text-decoration: none;
-        letter-spacing: -0.02em;
-        display: block;
-        margin-bottom: var(--space-3);
-      }
-      .footer-tagline {
-        font-size: 0.875rem;
-        color: var(--color-text-tertiary);
-        max-width: 240px;
-        line-height: 1.6;
-      }
-      .footer-nav {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3);
-        a {
-          font-size: 0.875rem;
-          color: var(--color-text-secondary);
-          text-decoration: none;
-          transition: color var(--transition-fast);
-          &:hover {
-            color: var(--color-accent);
-          }
-          &:focus-visible {
-            outline: 2px solid var(--color-accent);
-            outline-offset: 2px;
-          }
-        }
-      }
-      .footer-social {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3);
-      }
-      .social-link {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2);
-        font-size: 0.875rem;
-        color: var(--color-text-secondary);
-        text-decoration: none;
-        transition: color var(--transition-fast);
-        &:hover {
-          color: var(--color-accent);
-        }
-        &:focus-visible {
-          outline: 2px solid var(--color-accent);
-          outline-offset: 2px;
-        }
-        svg {
-          flex-shrink: 0;
-        }
-      }
-      .footer-bottom {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding-top: var(--space-6);
-        border-top: 1px solid var(--color-border);
-        font-size: 0.8125rem;
-        color: var(--color-text-tertiary);
-      }
-      .footer-built {
-        color: var(--color-text-tertiary);
-      }
-
-      /* Brutalist variant */
-      :host-context([data-variant="brutalist"]) .footer {
-        border-top: 2px solid var(--color-text);
-      }
-
-      @media (max-width: 768px) {
-        .footer-inner {
-          grid-template-columns: 1fr 1fr;
-          gap: var(--space-8);
-        }
-        .footer-brand {
-          grid-column: 1 / -1;
-        }
-        .footer-bottom {
-          flex-direction: column;
-          gap: var(--space-2);
-          text-align: center;
-        }
-      }
-      @media (max-width: 480px) {
-        .footer-inner {
-          grid-template-columns: 1fr;
-        }
-        .footer-nav {
-          flex-direction: row;
-          flex-wrap: wrap;
-        }
-        .footer-social {
-          flex-direction: row;
-          flex-wrap: wrap;
-        }
-      }
-    `,
-  ],
+  styleUrl: './footer.component.scss',
 })
 export class FooterComponent {
   readonly name = PROFILE.name;

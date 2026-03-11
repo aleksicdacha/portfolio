@@ -1,0 +1,226 @@
+      /* About Hero */
+      .about-hero {
+        padding: var(--space-16) 0 var(--space-20);
+      }
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 400px;
+        gap: var(--space-16);
+        align-items: start;
+      }
+      .page-eyebrow {
+        font-size: 0.8125rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--color-accent);
+        margin-bottom: var(--space-4);
+      }
+      .about-headline {
+        font-size: 1.25rem;
+        font-weight: 400;
+        color: var(--color-text-secondary);
+        margin: var(--space-2) 0 var(--space-6);
+      }
+      .about-bio {
+        font-size: 1.0625rem;
+        color: var(--color-text-secondary);
+        line-height: 1.75;
+        margin-bottom: var(--space-8);
+      }
+      .about-actions {
+        display: flex;
+        gap: var(--space-4);
+        flex-wrap: wrap;
+      }
+
+      /* Photo */
+      .about-photo {
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        aspect-ratio: 1/1;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 200px;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+      .photo-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          135deg,
+          var(--color-surface-2) 0%,
+          var(--color-surface) 100%
+        );
+      }
+      .initials {
+        font-family: var(--font-display);
+        font-size: 6rem;
+        font-weight: 700;
+        color: var(--color-border);
+        opacity: 0.6;
+        letter-spacing: -0.05em;
+      }
+
+      /* Now & Next */
+      .section-alt {
+        background: var(--color-surface);
+      }
+      .section-sub {
+        font-size: 1rem;
+        color: var(--color-text-secondary);
+        margin: var(--space-2) 0 var(--space-10);
+        max-width: 560px;
+        line-height: 1.7;
+      }
+      .nownext-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-6);
+        margin-top: var(--space-8);
+      }
+      .nownext-card {
+        padding: var(--space-8);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        background: var(--color-bg);
+      }
+      .nownext-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--color-accent);
+        margin: 0 0 var(--space-4);
+      }
+      .nownext-text {
+        font-size: 0.9375rem;
+        color: var(--color-text-secondary);
+        line-height: 1.7;
+        margin: 0;
+      }
+
+      /* Skills */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: var(--space-8);
+        margin-top: var(--space-4);
+      }
+      .skill-group {
+        padding: var(--space-6);
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+      }
+      .skill-group-title {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        font-size: 0.875rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--color-text);
+        margin: 0 0 var(--space-5);
+      }
+      .skill-group-icon {
+        font-size: 1rem;
+      }
+      .skill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2);
+      }
+
+      /* Education */
+      .edu-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-6);
+        margin-top: var(--space-8);
+      }
+      .edu-item {
+        padding: var(--space-6);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        background: var(--color-bg);
+      }
+      .edu-degree {
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 0 0 var(--space-2);
+      }
+      .edu-institution {
+        font-size: 0.9375rem;
+        color: var(--color-text-secondary);
+        margin: 0 0 var(--space-1);
+      }
+      .edu-loc {
+        font-size: 0.8125rem;
+        color: var(--color-text-tertiary);
+        margin: 0;
+      }
+
+      /* Interests */
+      .interests-section {
+        padding-bottom: var(--space-20);
+      }
+      .interests-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-3);
+        margin-top: var(--space-8);
+      }
+      .interest-tag {
+        padding: var(--space-2) var(--space-5);
+        font-size: 0.875rem;
+        font-weight: 500;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-full);
+        color: var(--color-text-secondary);
+        background: var(--color-surface);
+        transition: all var(--transition-fast);
+        &:hover {
+          border-color: var(--color-accent);
+          color: var(--color-accent);
+          background: var(--color-accent-subtle);
+        }
+      }
+
+      /* Brutalist variant */
+      :host-context([data-variant="brutalist"]) .about-photo,
+      :host-context([data-variant="brutalist"]) .nownext-card,
+      :host-context([data-variant="brutalist"]) .skill-group,
+      :host-context([data-variant="brutalist"]) .edu-item {
+        border-radius: 0;
+        border: 2px solid var(--color-text);
+      }
+
+      @media (max-width: 960px) {
+        .about-grid {
+          grid-template-columns: 1fr;
+        }
+        .about-photo-col {
+          max-width: 320px;
+        }
+      }
+      @media (max-width: 640px) {
+        .nownext-grid {
+          grid-template-columns: 1fr;
+        }
+        .about-actions {
+          flex-direction: column;
+          a {
+            text-align: center;
+          }
+        }
+      }
+    

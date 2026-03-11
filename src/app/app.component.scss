@@ -1,0 +1,35 @@
+      :host {
+        display: flex;
+        flex-direction: column;
+        min-height: 100dvh;
+        /* content layers above the fixed bg-scene (z-index: 0) */
+        isolation: isolate;
+      }
+      app-nav,
+      main,
+      app-footer {
+        position: relative;
+        z-index: 1;
+      }
+      main {
+        flex: 1;
+        outline: none;
+      }
+      .skip-link {
+        position: absolute;
+        top: -100%;
+        left: var(--space-4);
+        z-index: 9999;
+        padding: var(--space-2) var(--space-4);
+        background: var(--color-accent);
+        color: #fff;
+        font-weight: 600;
+        font-size: 0.875rem;
+        border-radius: var(--radius-sm);
+        text-decoration: none;
+        transition: top 0.1s;
+        &:focus {
+          top: var(--space-4);
+        }
+      }
+    
