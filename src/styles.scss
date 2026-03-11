@@ -3,10 +3,10 @@
 //  Import order matters.
 // ─────────────────────────────────────────────────────────────────────────────
 
-@use 'styles/tokens'     as *;
-@use 'styles/reset'      as *;
-@use 'styles/typography' as *;
-@use 'styles/animations' as *;
+@use "styles/tokens" as *;
+@use "styles/reset" as *;
+@use "styles/typography" as *;
+@use "styles/animations" as *;
 
 // ─── Layout Utilities ─────────────────────────────────────────────────────────
 
@@ -36,9 +36,12 @@
   cursor: pointer;
   text-decoration: none;
   border: 1px solid transparent;
-  transition: background var(--transition-fast), color var(--transition-fast),
-              border-color var(--transition-fast), box-shadow var(--transition-fast),
-              transform var(--transition-fast);
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
   white-space: nowrap;
 
   &:focus-visible {
@@ -46,11 +49,15 @@
     outline-offset: 3px;
   }
 
-  &:active { transform: translateY(1px); }
+  &:active {
+    transform: translateY(1px);
+  }
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
-    &:active { transform: none; }
+    &:active {
+      transform: none;
+    }
   }
 }
 
@@ -109,18 +116,27 @@
       box-shadow: 4px 4px 0 var(--color-text);
       transform: translate(-2px, -2px);
     }
-    &:active { transform: translate(0, 0); box-shadow: none; }
+    &:active {
+      transform: translate(0, 0);
+      box-shadow: none;
+    }
   }
 
   .btn-primary {
     background: var(--color-text);
     color: var(--color-bg);
     border-color: var(--color-text);
-    &:hover { background: var(--color-accent); border-color: var(--color-accent); color: #fff; }
+    &:hover {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: #fff;
+    }
   }
 }
 
 // ─── Page transition support ───────────────────────────────────────────────
 @supports (view-transition-name: none) {
-  app-root { view-transition-name: none; }
+  app-root {
+    view-transition-name: none;
+  }
 }

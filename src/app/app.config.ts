@@ -1,7 +1,12 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter, withComponentInputBinding, withInMemoryScrolling, withViewTransitions } from '@angular/router';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { routes } from './app.routes';
+import { ApplicationConfig, provideZoneChangeDetection } from "@angular/core";
+import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
+import {
+  provideRouter,
+  withComponentInputBinding,
+  withInMemoryScrolling,
+  withViewTransitions,
+} from "@angular/router";
+import { routes } from "./app.routes";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -10,8 +15,8 @@ export const appConfig: ApplicationConfig = {
       routes,
       withComponentInputBinding(),
       withInMemoryScrolling({
-        scrollPositionRestoration: 'top',
-        anchorScrolling: 'enabled',
+        scrollPositionRestoration: "top",
+        anchorScrolling: "enabled",
       }),
       withViewTransitions(),
     ),

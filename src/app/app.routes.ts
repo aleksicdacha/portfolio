@@ -1,68 +1,82 @@
-import { Routes } from '@angular/router';
+import { Routes } from "@angular/router";
 
 export const routes: Routes = [
   {
-    path: '',
+    path: "",
     loadComponent: () =>
-      import('./pages/home/home.component').then(m => m.HomeComponent),
-    title: 'Dalibor Aleksic – Full-Stack Developer',
+      import("./pages/home/home.component").then((m) => m.HomeComponent),
+    title: "Dalibor Aleksic – Full-Stack Developer",
     data: {
-      description: 'Experienced Full-Stack Developer with 20+ years of expertise in Angular, React, Node.js, PHP, and modern web technologies.',
-      ogTitle: 'Dalibor Aleksic – Full-Stack Developer',
+      description:
+        "Experienced Full-Stack Developer with 20+ years of expertise in Angular, React, Node.js, PHP, and modern web technologies.",
+      ogTitle: "Dalibor Aleksic – Full-Stack Developer",
     },
   },
   {
-    path: 'projects',
+    path: "projects",
     loadComponent: () =>
-      import('./pages/projects/projects.component').then(m => m.ProjectsComponent),
-    title: 'Projects – Dalibor Aleksic',
+      import("./pages/projects/projects.component").then(
+        (m) => m.ProjectsComponent,
+      ),
+    title: "Projects – Dalibor Aleksic",
     data: {
-      description: 'Portfolio of projects built by Dalibor Aleksic – web apps, platforms, and tools across diverse industries.',
-      ogTitle: 'Projects – Dalibor Aleksic',
+      description:
+        "Portfolio of projects built by Dalibor Aleksic – web apps, platforms, and tools across diverse industries.",
+      ogTitle: "Projects – Dalibor Aleksic",
     },
   },
   {
-    path: 'projects/:slug',
+    path: "projects/:slug",
     loadComponent: () =>
-      import('./pages/projects/project-detail/project-detail.component').then(m => m.ProjectDetailComponent),
-    title: 'Project Detail – Dalibor Aleksic',
-    data: { description: 'Project detail' },
+      import("./pages/projects/project-detail/project-detail.component").then(
+        (m) => m.ProjectDetailComponent,
+      ),
+    title: "Project Detail – Dalibor Aleksic",
+    data: { description: "Project detail" },
   },
   {
-    path: 'experience',
+    path: "experience",
     loadComponent: () =>
-      import('./pages/experience/experience.component').then(m => m.ExperienceComponent),
-    title: 'Experience – Dalibor Aleksic',
+      import("./pages/experience/experience.component").then(
+        (m) => m.ExperienceComponent,
+      ),
+    title: "Experience – Dalibor Aleksic",
     data: {
-      description: '20+ years of full-stack development experience across Serbia, Denmark, and Switzerland.',
-      ogTitle: 'Experience – Dalibor Aleksic',
+      description:
+        "20+ years of full-stack development experience across Serbia, Denmark, and Switzerland.",
+      ogTitle: "Experience – Dalibor Aleksic",
     },
   },
   {
-    path: 'about',
+    path: "about",
     loadComponent: () =>
-      import('./pages/about/about.component').then(m => m.AboutComponent),
-    title: 'About – Dalibor Aleksic',
+      import("./pages/about/about.component").then((m) => m.AboutComponent),
+    title: "About – Dalibor Aleksic",
     data: {
-      description: 'About Dalibor Aleksic – Full-Stack Developer based in Nis, Serbia.',
-      ogTitle: 'About – Dalibor Aleksic',
+      description:
+        "About Dalibor Aleksic – Full-Stack Developer based in Nis, Serbia.",
+      ogTitle: "About – Dalibor Aleksic",
     },
   },
   {
-    path: 'contact',
+    path: "contact",
     loadComponent: () =>
-      import('./pages/contact/contact.component').then(m => m.ContactComponent),
-    title: 'Contact – Dalibor Aleksic',
+      import("./pages/contact/contact.component").then(
+        (m) => m.ContactComponent,
+      ),
+    title: "Contact – Dalibor Aleksic",
     data: {
-      description: 'Get in touch with Dalibor Aleksic.',
-      ogTitle: 'Contact – Dalibor Aleksic',
+      description: "Get in touch with Dalibor Aleksic.",
+      ogTitle: "Contact – Dalibor Aleksic",
     },
   },
   {
-    path: '**',
+    path: "**",
     loadComponent: () =>
-      import('./pages/not-found/not-found.component').then(m => m.NotFoundComponent),
-    title: '404 – Page Not Found',
-    data: { description: 'Page not found' },
+      import("./pages/not-found/not-found.component").then(
+        (m) => m.NotFoundComponent,
+      ),
+    title: "404 – Page Not Found",
+    data: { description: "Page not found" },
   },
 ];

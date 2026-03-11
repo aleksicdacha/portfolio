@@ -1,5 +1,7 @@
 // CSS Reset – minimal, modern
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -26,24 +28,41 @@ body {
   overflow-x: hidden;
 }
 
-img, video, svg {
+img,
+video,
+svg {
   max-width: 100%;
   display: block;
 }
 
-input, button, textarea, select {
+input,
+button,
+textarea,
+select {
   font: inherit;
 }
 
-p, h1, h2, h3, h4, h5, h6 {
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   overflow-wrap: break-word;
 }
 
-ul[role="list"], ol[role="list"] {
+ul[role="list"],
+ol[role="list"] {
   list-style: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-display);
   font-weight: 700;
   line-height: 1.1;
@@ -51,7 +70,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 // Link defaults
-a { color: inherit; }
+a {
+  color: inherit;
+}
 
 // Focus visible (accessible default - components override as needed)
 :focus-visible {
@@ -67,8 +88,13 @@ a { color: inherit; }
   scrollbar-width: thin;
   scrollbar-color: var(--color-border) transparent;
 }
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
 
 // Screen reader utility
 .sr-only {

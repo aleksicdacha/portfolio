@@ -1,69 +1,109 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0057FF" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0A0A0A" media="(prefers-color-scheme: dark)">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="theme-color"
+      content="#0057FF"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#0A0A0A"
+      media="(prefers-color-scheme: dark)"
+    />
 
-  <!-- Primary Meta -->
-  <title>Dalibor Aleksic – Full-Stack Developer</title>
-  <meta name="description" content="Experienced Full-Stack Developer with 20+ years of expertise in Angular, React, Node.js, PHP, and modern web technologies.">
-  <meta name="author" content="Dalibor Aleksic">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://aleksicdacha.dev/">
+    <!-- Primary Meta -->
+    <title>Dalibor Aleksic – Full-Stack Developer</title>
+    <meta
+      name="description"
+      content="Experienced Full-Stack Developer with 20+ years of expertise in Angular, React, Node.js, PHP, and modern web technologies."
+    />
+    <meta name="author" content="Dalibor Aleksic" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://aleksicdacha.dev/" />
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://aleksicdacha.dev/">
-  <meta property="og:title" content="Dalibor Aleksic – Full-Stack Developer">
-  <meta property="og:description" content="Experienced Full-Stack Developer with 20+ years in Angular, React, Node.js, PHP and modern web technologies.">
-  <meta property="og:image" content="https://aleksicdacha.dev/assets/images/og-image.jpg">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://aleksicdacha.dev/" />
+    <meta
+      property="og:title"
+      content="Dalibor Aleksic – Full-Stack Developer"
+    />
+    <meta
+      property="og:description"
+      content="Experienced Full-Stack Developer with 20+ years in Angular, React, Node.js, PHP and modern web technologies."
+    />
+    <meta
+      property="og:image"
+      content="https://aleksicdacha.dev/assets/images/og-image.jpg"
+    />
 
-  <!-- Twitter / X Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Dalibor Aleksic – Full-Stack Developer">
-  <meta name="twitter:description" content="Experienced Full-Stack Developer with 20+ years of expertise.">
-  <meta name="twitter:image" content="https://aleksicdacha.dev/assets/images/og-image.jpg">
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Dalibor Aleksic – Full-Stack Developer"
+    />
+    <meta
+      name="twitter:description"
+      content="Experienced Full-Stack Developer with 20+ years of expertise."
+    />
+    <meta
+      name="twitter:image"
+      content="https://aleksicdacha.dev/assets/images/og-image.jpg"
+    />
 
-  <!-- JSON-LD Person schema (base; SeoService adds page-specific schemas via DOM) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Dalibor Aleksic",
-    "jobTitle": "Full-Stack Developer",
-    "url": "https://aleksicdacha.dev/",
-    "sameAs": [
-      "https://www.linkedin.com/in/aleksicdacha42a29b111/",
-      "https://github.com/aleksicdacha"
-    ],
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Nis",
-      "addressCountry": "Serbia"
-    }
-  }
-  </script>
-
-  <!-- Fonts: Inter (body) + Fraunces (display) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,700&display=swap" rel="stylesheet">
-
-  <!-- GitHub Pages SPA redirect handler -->
-  <script>
-    (function(l) {
-      if (l.search[1] === '/' ) {
-        var decoded = l.search.slice(1).split('&').map(function(s) {
-          return s.replace(/~and~/g, '&');
-        }).join('?');
-        window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+    <!-- JSON-LD Person schema (base; SeoService adds page-specific schemas via DOM) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Dalibor Aleksic",
+        "jobTitle": "Full-Stack Developer",
+        "url": "https://aleksicdacha.dev/",
+        "sameAs": [
+          "https://www.linkedin.com/in/aleksicdacha42a29b111/",
+          "https://github.com/aleksicdacha"
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Nis",
+          "addressCountry": "Serbia"
+        }
       }
-    }(window.location));
-  </script>
-</head>
-<body>
-  <app-root></app-root>
-</body>
+    </script>
+
+    <!-- Fonts: Inter (body) + Fraunces (display) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- GitHub Pages SPA redirect handler -->
+    <script>
+      (function (l) {
+        if (l.search[1] === "/") {
+          var decoded = l.search
+            .slice(1)
+            .split("&")
+            .map(function (s) {
+              return s.replace(/~and~/g, "&");
+            })
+            .join("?");
+          window.history.replaceState(
+            null,
+            null,
+            l.pathname.slice(0, -1) + decoded + l.hash,
+          );
+        }
+      })(window.location);
+    </script>
+  </head>
+  <body>
+    <app-root></app-root>
+  </body>
 </html>

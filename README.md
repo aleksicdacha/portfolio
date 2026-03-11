@@ -9,10 +9,10 @@
 
 ### Fonts
 
-| Role | Font | Weights |
-|------|------|---------|
-| Body / UI | **Inter** | 300, 400, 500, 600, 700 |
-| Display / Headlines | **Fraunces** (variable optical size) | 300, 400, 700 |
+| Role                | Font                                 | Weights                 |
+| ------------------- | ------------------------------------ | ----------------------- |
+| Body / UI           | **Inter**                            | 300, 400, 500, 600, 700 |
+| Display / Headlines | **Fraunces** (variable optical size) | 300, 400, 700           |
 
 Fonts load via Google Fonts in `src/index.html` with `display=swap` for performance.
 
@@ -20,61 +20,62 @@ Fonts load via Google Fonts in `src/index.html` with `display=swap` for performa
 
 Based on a **4px base unit**:
 
-| Token | Value |
-|-------|-------|
-| `--space-1` | 4px |
-| `--space-2` | 8px |
-| `--space-3` | 12px |
-| `--space-4` | 16px |
-| `--space-6` | 24px |
-| `--space-8` | 32px |
-| `--space-12` | 48px |
-| `--space-16` | 64px |
-| `--space-20` | 80px |
-| `--space-24` | 96px |
+| Token        | Value |
+| ------------ | ----- |
+| `--space-1`  | 4px   |
+| `--space-2`  | 8px   |
+| `--space-3`  | 12px  |
+| `--space-4`  | 16px  |
+| `--space-6`  | 24px  |
+| `--space-8`  | 32px  |
+| `--space-12` | 48px  |
+| `--space-16` | 64px  |
+| `--space-20` | 80px  |
+| `--space-24` | 96px  |
 | `--space-32` | 128px |
 
 ### Color Tokens
 
-| Token | Light | Dark |
-|-------|-------|------|
-| `--color-bg` | `#FAFAFA` | `#0A0A0A` |
-| `--color-surface` | `#FFFFFF` | `#141414` |
-| `--color-text` | `#0A0A0A` | `#F5F5F5` |
-| `--color-text-secondary` | `#6B6B6B` | `#A3A3A3` |
-| `--color-accent` | `hsl(218, 100%, 55%)` | same |
-| `--color-border` | `#E5E5E5` | `#2A2A2A` |
+| Token                    | Light                 | Dark      |
+| ------------------------ | --------------------- | --------- |
+| `--color-bg`             | `#FAFAFA`             | `#0A0A0A` |
+| `--color-surface`        | `#FFFFFF`             | `#141414` |
+| `--color-text`           | `#0A0A0A`             | `#F5F5F5` |
+| `--color-text-secondary` | `#6B6B6B`             | `#A3A3A3` |
+| `--color-accent`         | `hsl(218, 100%, 55%)` | same      |
+| `--color-border`         | `#E5E5E5`             | `#2A2A2A` |
 
 ### Accent Color
 
 Change the accent by editing these HSL variables in `src/styles/_tokens.scss`:
 
 ```scss
---accent-h: 218;   // hue   (0–360)
---accent-s: 100%;  // saturation
---accent-l: 55%;   // lightness
+--accent-h: 218; // hue   (0–360)
+--accent-s: 100%; // saturation
+--accent-l: 55%; // lightness
 ```
 
 ### Components
 
-| Component | Description |
-|-----------|-------------|
-| `<app-nav>` | Sticky top navigation with mobile hamburger menu |
-| `<app-footer>` | 3-column footer with logo, nav links, social links |
+| Component            | Description                                               |
+| -------------------- | --------------------------------------------------------- |
+| `<app-nav>`          | Sticky top navigation with mobile hamburger menu          |
+| `<app-footer>`       | 3-column footer with logo, nav links, social links        |
 | `<app-theme-toggle>` | Moon/Sun icon button; persists preference to localStorage |
-| `<app-skill-tag>` | Small bordered pill with category support |
-| `<app-project-card>` | Project card with image, tech tags, links |
+| `<app-skill-tag>`    | Small bordered pill with category support                 |
+| `<app-project-card>` | Project card with image, tech tags, links                 |
 
 ### Design Variants
 
 Set via `[data-variant]` attribute on `<html>`:
 
-| Variant | `data-variant` | Description |
-|---------|----------------|-------------|
-| **A – Editorial Minimal** | `editorial` | Clean, typography-first, soft shadows, rounded corners |
-| **B – Soft Brutalist** | `brutalist` | Thick borders, zero border-radius, offset shadows, warm cream bg |
+| Variant                   | `data-variant` | Description                                                      |
+| ------------------------- | -------------- | ---------------------------------------------------------------- |
+| **A – Editorial Minimal** | `editorial`    | Clean, typography-first, soft shadows, rounded corners           |
+| **B – Soft Brutalist**    | `brutalist`    | Thick borders, zero border-radius, offset shadows, warm cream bg |
 
 To permanently switch variants, edit `src/app/data/design.config.ts`:
+
 ```ts
 export const ACTIVE_DESIGN: DesignConfig = BRUTALIST; // change to BRUTALIST
 ```
@@ -107,11 +108,13 @@ Open [http://localhost:4200](http://localhost:4200). The app reloads on file cha
 ### Build
 
 **Development build:**
+
 ```bash
 npm run watch
 ```
 
 **Production build:**
+
 ```bash
 npm run build:prod
 # Output: dist/portfolio/browser/
@@ -128,6 +131,7 @@ src/app/data/profile.ts
 ```
 
 Edit this file to update:
+
 - Name, headline, tagline, contact info
 - Experience timeline entries
 - Projects (title, description, links, tech stack)
@@ -149,6 +153,7 @@ imageUrl: 'assets/images/projects/my-project.jpg',
 
 1. Replace `src/assets/cv/dalibor-aleksic-cv.pdf`
 2. Or update the path in `profile.ts`:
+
 ```ts
 cvUrl: 'assets/cv/dalibor-aleksic-cv.pdf',
 ```
@@ -215,8 +220,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'npm'
+          node-version: "22"
+          cache: "npm"
       - run: npm ci
       - run: npm run build:gh-pages
       - uses: peaceiris/actions-gh-pages@v4
