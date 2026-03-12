@@ -15,8 +15,8 @@ export const PROFILE: Profile = {
   phone: "+381 (069) 2924776",
   location: "Nis, Serbia",
   timezone: "CET (UTC+1)",
-  cvUrl: "assets/cv/cv.pdf", // TODO: drop your CV PDF in src/assets/cv/
-  headshot: "assets/images/me.png", // TODO: add URL e.g. 'assets/images/headshot.jpg'
+  cvUrl: "/assets/cv/cv.pdf", // TODO: drop your CV PDF in src/assets/cv/
+  headshot: "/assets/images/me.png", // TODO: add URL e.g. '/assets/images/headshot.jpg'
 
   // ── Social Links ──────────────────────────────────────────────────────────
   socialLinks: [
@@ -86,7 +86,7 @@ export const PROFILE: Profile = {
         "Built high-profile sports media platforms and AI-powered content generation tools.",
       achievements: [
         "Developed and maintained AI-powered tools for automated sports content generation using CrewAI and LLM agents.",
-        "Led complete front-end revamp of Vegas Insider (vegasinsider.com) — a top US sports-betting platform — using Web Components.",
+        "Complete front-end revamp of Vegas Insider (vegasinsider.com) — a top US sports-betting platform — using Web Components.",
         "Architected back-end services in PHP (Symfony/Laravel) and Node.js for high-traffic sports media sites.",
         "Made key architectural and design decisions; mentored junior developers and guided internship programs.",
         "Worked across a portfolio of high-traffic, SEO-critical sports media properties.",
@@ -126,7 +126,7 @@ export const PROFILE: Profile = {
     },
     {
       company: "Olymp Real-Estates",
-      companyUrl: undefined,
+      companyUrl: "https://www.olymp-nekretnine.co.rs",
       location: "Nis, Serbia",
       role: "Co-owner & Web Developer",
       startDate: "2009",
@@ -170,7 +170,7 @@ export const PROFILE: Profile = {
       companyUrl: "https://www.olla.me/",
       liveUrl: "https://www.olla.me/",
       repoUrl: undefined,
-      imageUrl: "assets/images/projects/olla.png", // TODO: add screenshot
+      imageUrl: "/assets/images/projects/olla.png", // TODO: add screenshot
       tech: ["Angular", "Ionic", "TypeScript", "Azure DevOps", "PostgreSQL"],
       tags: ["mobile", "frontend", "health", "angular"],
       featured: true,
@@ -188,7 +188,7 @@ export const PROFILE: Profile = {
       companyUrl: "https://www.bettercollective.com/",
       liveUrl: "https://www.vegasinsider.com/",
       repoUrl: undefined,
-      imageUrl: "assets/images/projects/vegas.png", // TODO: add screenshot
+      imageUrl: "/assets/images/projects/vegas.png", // TODO: add screenshot
       tech: ["Web Components", "Stencil", "TypeScript", "PHP", "Symfony"],
       tags: ["frontend", "web-components", "sports", "php"],
       featured: true,
@@ -206,7 +206,7 @@ export const PROFILE: Profile = {
       companyUrl: "https://www.bettercollective.com/",
       liveUrl: "https://www.bettercollective.com/",
       repoUrl: undefined,
-      imageUrl: "assets/images/projects/bc.png", // TODO: add screenshot
+      imageUrl: "/assets/images/projects/bc.png", // TODO: add screenshot
       tech: ["Python", "CrewAI", "LLM Agents", "Node.js", "TypeScript"],
       tags: ["ai", "backend", "machine-learning", "sports"],
       featured: true,
@@ -224,7 +224,7 @@ export const PROFILE: Profile = {
       companyUrl: "https://www.horisen.com/",
       liveUrl: "https://www.horisen.com/",
       repoUrl: undefined,
-      imageUrl: undefined, // TODO: add screenshot
+      imageUrl: "/assets/images/projects/horisen.png", // TODO: add screenshot
       tech: ["PHP", "Zend Framework", "AngularJS", "JavaScript", "MySQL"],
       tags: ["backend", "enterprise", "telecom", "php"],
       featured: false,
@@ -239,9 +239,10 @@ export const PROFILE: Profile = {
         "Co-founded and fully developed a real estate management portal handling property listings, search, agency management, and digital marketing automation. Handled full deployment, maintenance, and SEO strategy.",
       role: "Co-owner & Web Developer",
       company: "Olymp Real-Estates",
-      liveUrl: undefined,
+      companyUrl: "https://www.olymp-nekretnine.co.rs",
+      liveUrl: "https://www.olymp-nekretnine.co.rs",
       repoUrl: undefined,
-      imageUrl: undefined, // TODO: add screenshot
+      imageUrl: "/assets/images/projects/olymp.png", // TODO: add screenshot
       tech: ["PHP", "CodeIgniter", "Smarty", "MySQL", "jQuery"],
       tags: ["backend", "fullstack", "real-estate", "php"],
       featured: false,
