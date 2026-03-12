@@ -7,7 +7,7 @@ import { Profile } from "./profile.model";
 
 export const PROFILE: Profile = {
   // ── Identity ──────────────────────────────────────────────────────────────
-  name: "Dalibor Aleksic",
+  name: "Dalibor Aleksić",
   headline: "Full-Stack Developer",
   tagline:
     "Building scalable web products at the intersection of great engineering and clean design.",

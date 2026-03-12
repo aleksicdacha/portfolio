@@ -12,8 +12,9 @@ ssh-keygen -t ed25519 -C "github-actions-portfolio-deploy" -f ~/.ssh/github_depl
 ```
 
 This creates two files:
-- `~/.ssh/github_deploy_portfolio`       ← **private key** (goes to GitHub)
-- `~/.ssh/github_deploy_portfolio.pub`   ← **public key** (goes to server)
+
+- `~/.ssh/github_deploy_portfolio` ← **private key** (goes to GitHub)
+- `~/.ssh/github_deploy_portfolio.pub` ← **public key** (goes to server)
 
 ---
 
@@ -31,13 +32,14 @@ cat ~/.ssh/github_deploy_portfolio.pub | ssh root@46.224.231.217 "cat >> ~/.ssh/
 
 Go to: **GitHub → aleksicdacha/portfolio → Settings → Secrets and variables → Actions → New repository secret**
 
-| Secret name              | Value                                               |
-|--------------------------|-----------------------------------------------------|
-| `HETZNER_SSH_PRIVATE_KEY`| Full contents of `~/.ssh/github_deploy_portfolio`   |
-| `HETZNER_HOST`           | `46.224.231.217`                                    |
-| `HETZNER_USER`           | `root`                                              |
+| Secret name               | Value                                             |
+| ------------------------- | ------------------------------------------------- |
+| `HETZNER_SSH_PRIVATE_KEY` | Full contents of `~/.ssh/github_deploy_portfolio` |
+| `HETZNER_HOST`            | `46.224.231.217`                                  |
+| `HETZNER_USER`            | `root`                                            |
 
 To copy the private key:
+
 ```bash
 cat ~/.ssh/github_deploy_portfolio
 # Copy the ENTIRE output including -----BEGIN/END----- lines
@@ -49,17 +51,17 @@ cat ~/.ssh/github_deploy_portfolio
 
 In **Hetzner Cloud Console → Firewalls → portfolio-firewall → Edit → Inbound rules**, ensure these ports are open:
 
-| Protocol | Port  | Description                      |
-|----------|-------|----------------------------------|
-| TCP      | 22    | SSH (deploy + your own access)   |
-| TCP      | 80    | HTTP → HTTPS redirect (portfolio)|
-| TCP      | 443   | HTTPS portfolio                  |
-| TCP      | 8090  | NestJS API HTTP (IP mode)        |
-| TCP      | 8443  | HTTPS — NestJS API               |
-| TCP      | 8081  | HTTP → HTTPS redirect (admin)    |
-| TCP      | 8444  | HTTPS — Admin panel              |
-| TCP      | 8082  | HTTP → HTTPS redirect (user site)|
-| TCP      | 8445  | HTTPS — User website             |
+| Protocol | Port | Description                       |
+| -------- | ---- | --------------------------------- |
+| TCP      | 22   | SSH (deploy + your own access)    |
+| TCP      | 80   | HTTP → HTTPS redirect (portfolio) |
+| TCP      | 443  | HTTPS portfolio                   |
+| TCP      | 8090 | NestJS API HTTP (IP mode)         |
+| TCP      | 8443 | HTTPS — NestJS API                |
+| TCP      | 8081 | HTTP → HTTPS redirect (admin)     |
+| TCP      | 8444 | HTTPS — Admin panel               |
+| TCP      | 8082 | HTTP → HTTPS redirect (user site) |
+| TCP      | 8445 | HTTPS — User website              |
 
 ---
 
@@ -116,10 +118,10 @@ scp -O deploy/nginx/sites-available/realestate.conf    root@46.224.231.217:/etc/
 
 Log in to your domain registrar (wherever `aleksicdacha.dev` is registered) and add/update:
 
-| Type | Name              | Value             | TTL  |
-|------|-------------------|-------------------|------|
-| A    | `aleksicdacha.dev`     | `46.224.231.217`  | 300  |
-| A    | `www.aleksicdacha.dev` | `46.224.231.217`  | 300  |
+| Type | Name                   | Value            | TTL |
+| ---- | ---------------------- | ---------------- | --- |
+| A    | `aleksicdacha.dev`     | `46.224.231.217` | 300 |
+| A    | `www.aleksicdacha.dev` | `46.224.231.217` | 300 |
 
 Then wait for DNS to propagate (usually 5–30 minutes). Verify:
 
