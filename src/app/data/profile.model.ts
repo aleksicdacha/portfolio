@@ -5,7 +5,7 @@
 export interface SocialLink {
   label: string;
   url: string;
-  icon: "linkedin" | "github" | "email" | "external";
+  icon: "linkedin" | "github" | "email" | "external" | "instagram"; // TODO: add more icons as needed
 }
 
 export interface TechTag {
