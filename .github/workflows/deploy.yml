@@ -45,10 +45,13 @@ jobs:
       # ── 6. Deploy via rsync ─────────────────────────────────────────────────
       - name: Deploy to server
         run: |
+          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no \
+            ${{ secrets.HETZNER_USER }}@${{ secrets.HETZNER_HOST }} \
+            "mkdir -p /root/Portfolio/dist/portfolio/browser"
           rsync -azv --delete \
             -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
             dist/portfolio/browser/ \
-            ${{ secrets.HETZNER_USER }}@${{ secrets.HETZNER_HOST }}:/root/Portfolio/
+            ${{ secrets.HETZNER_USER }}@${{ secrets.HETZNER_HOST }}:/root/Portfolio/dist/portfolio/browser/
 
       # ── 7. Fix permissions & reload nginx ───────────────────────────────────
       - name: Fix permissions and reload nginx
