@@ -1,10 +1,77 @@
-# Hetzner Server — One-Time Setup Guide
+# Hetzner Server — Setup Guide
 
 Server: **realestates-production** · `46.224.231.217`
 
+> **TL;DR — After a fresh rebuild, run the automated script.**
+> See [§ Automated setup](#automated-setup-after-rebuild) below.
+> Manual steps are kept here for reference only.
+
 ---
 
-## STEP 1 — Generate a dedicated deploy SSH key (on your LOCAL machine)
+## Automated setup (after rebuild)
+
+### 0. Prerequisites (on your local machine)
+
+```bash
+# 1. Ensure you have the server SSH key
+ls ~/.ssh/hetzner_new      # private key for root@46.224.231.217
+
+# 2. Find your local public IP (add to FAIL2BAN_IGNORE_IPS in setup-server.sh)
+curl https://ifconfig.me
+```
+
+### 1. Edit the setup script
+
+Open `deploy/server-hardening/setup-server.sh` and set:
+
+| Variable | Example value |
+|---|---|
+| `PORTFOLIO_DOMAIN` | `aleksicdacha.dev` |
+| `REPO_PORTFOLIO` | `git@github.com:YOU/Portfolio.git` |
+| `REPO_REALESTATE` | `git@github.com:YOU/RealEstatesAPI-NestJS.git` |
+| `AUTHORIZED_KEY` | paste output of `cat ~/.ssh/hetzner_new.pub` |
+| `FAIL2BAN_IGNORE_IPS` | `127.0.0.1/8 ::1 YOUR.HOME.IP.HERE` |
+
+Also edit `deploy/server-hardening/fail2ban-jail.local`:  
+Add your home IP to the `ignoreip` line.
+
+### 2. Copy files to server
+
+```bash
+# From repo root
+scp -r deploy/server-hardening root@46.224.231.217:/root/setup
+scp -r deploy/nginx             root@46.224.231.217:/root/setup/nginx
+```
+
+### 3. Run the script
+
+```bash
+ssh root@46.224.231.217 "bash /root/setup/setup-server.sh 2>&1 | tee /root/setup.log"
+```
+
+Script will:
+- Update system packages
+- Harden SSH (key-only, MaxAuthTries 3)
+- Enable UFW (deny-all, allow 22/80/443)
+- Configure fail2ban (SSH + nginx rules)
+- Install Docker, Node.js 20, PM2
+- Clone both repos and build apps
+- Configure nginx + issue Let's Encrypt SSL
+- Start Docker services (postgres, redis, API)
+- Start PM2 apps (admin-web, user-web) with startup hook
+
+### 4. Post-run checklist
+
+- [ ] Verify `apps/api/.env` has correct DB credentials
+- [ ] Verify `apps/user-web/.env.local` has Google Maps API key
+- [ ] Test login from a **new terminal** before closing the setup session
+- [ ] Add GitHub Actions deploy key (see §GitHub Actions deploy key below)
+
+---
+
+## GitHub Actions deploy key
+
+### Generate (local machine)
 
 ```bash
 ssh-keygen -t ed25519 -C "github-actions-portfolio-deploy" -f ~/.ssh/github_deploy_portfolio
@@ -18,7 +85,7 @@ This creates two files:
 
 ---
 
-## STEP 2 — Add public key to the Hetzner server
+### Add public key to the Hetzner server
 
 ```bash
 ssh-copy-id -i ~/.ssh/github_deploy_portfolio.pub root@46.224.231.217
@@ -26,9 +93,7 @@ ssh-copy-id -i ~/.ssh/github_deploy_portfolio.pub root@46.224.231.217
 cat ~/.ssh/github_deploy_portfolio.pub | ssh root@46.224.231.217 "cat >> ~/.ssh/authorized_keys"
 ```
 
----
-
-## STEP 3 — Add secrets to GitHub repository
+### Add secrets to GitHub repository
 
 Go to: **GitHub → aleksicdacha/portfolio → Settings → Secrets and variables → Actions → New repository secret**
 
@@ -47,7 +112,7 @@ cat ~/.ssh/github_deploy_portfolio
 
 ---
 
-## STEP 4 — Hetzner Cloud Firewall
+## Hetzner Cloud Firewall (reference)
 
 In **Hetzner Cloud Console → Firewalls → portfolio-firewall → Edit → Inbound rules**, ensure these ports are open:
 
@@ -65,7 +130,7 @@ In **Hetzner Cloud Console → Firewalls → portfolio-firewall → Edit → Inb
 
 ---
 
-## STEP 5 — First-time server software setup (run once via SSH)
+## Manual software setup (reference — use setup-server.sh instead)
 
 ```bash
 ssh root@46.224.231.217
@@ -90,7 +155,7 @@ mkdir -p /var/www/certbot
 
 ---
 
-## STEP 6 — Install nginx config files (run once)
+## Manual nginx setup (reference)
 
 From your **local machine**:
 
@@ -114,7 +179,7 @@ scp -O deploy/nginx/sites-available/realestate.conf    root@46.224.231.217:/etc/
 
 ---
 
-## STEP 7 — Point DNS to your server ⚠️ DO THIS FIRST
+## DNS setup ⚠️
 
 Log in to your domain registrar (wherever `aleksicdacha.dev` is registered) and add/update:
 
@@ -135,7 +200,7 @@ DNS not set up yet = Let's Encrypt certificate will fail.
 
 ---
 
-## STEP 8 — Issue TLS certificate (Let's Encrypt)
+## TLS certificate (manual)
 
 Run **after DNS is confirmed pointing to the server**:
 
@@ -166,7 +231,7 @@ certbot renew --dry-run
 
 ---
 
-## STEP 9 — First manual deploy (to seed the Portfolio folder)
+## First manual deploy (reference)
 
 From your **local machine**:
 

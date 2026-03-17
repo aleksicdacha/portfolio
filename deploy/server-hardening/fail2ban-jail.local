@@ -1,0 +1,61 @@
+# =============================================================================
+#  /etc/fail2ban/jail.local
+#
+#  Fail2ban — SSH brute-force protection
+#  DEPLOY: scp deploy/server-hardening/fail2ban-jail.local \
+#               root@SERVER:/etc/fail2ban/jail.local
+#          ssh root@SERVER "systemctl restart fail2ban"
+#
+#  !! EDIT ignoreip BEFORE deploying — add your own public IP !!
+#  Run `curl https://ifconfig.me` locally to find it.
+# =============================================================================
+
+[DEFAULT]
+# Your own IPs — NEVER ban these
+# Add your home/office/VPN IPs here, space-separated
+ignoreip = 127.0.0.1/8 ::1, 188.120.106.190
+
+# Ban for 24 hours on first trigger
+bantime  = 86400
+
+# Look back 10 minutes for violations
+findtime = 600
+
+# Allow 5 failures before banning (MaxAuthTries=3 in sshd means 2 actual attempts)
+maxretry = 5
+
+# Email alerts (optional — set to your email if you want notifications)
+# destemail = you@example.com
+# sender    = fail2ban@%(host)s
+# action    = %(action_mwl)s
+
+# ── SSH jail ──────────────────────────────────────────────────────────────────
+[sshd]
+enabled  = true
+port     = ssh
+filter   = sshd
+backend  = systemd
+maxretry = 3
+bantime  = 86400
+findtime = 300
+
+# ── nginx — block repeated 4xx (scanner/bot patterns) ─────────────────────────
+[nginx-http-auth]
+enabled = true
+port    = http,https
+
+[nginx-limit-req]
+enabled  = true
+port     = http,https
+logpath  = /var/log/nginx/*error.log
+maxretry = 10
+findtime = 60
+bantime  = 3600
+
+[nginx-botsearch]
+enabled  = true
+port     = http,https
+logpath  = /var/log/nginx/*access.log
+maxretry = 5
+findtime = 60
+bantime  = 86400
