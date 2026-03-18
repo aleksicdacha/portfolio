@@ -28,7 +28,7 @@ import { PROFILE } from "../../../data/profile";
               <path d="M9 8l-4 4 4 4" />
               <path d="M15 8l4 4-4 4" />
             </svg>
-            Cod-a
+            <span class="logo-name">Cod-a</span>
           </a>
           <p class="footer-tagline">{{ tagline }}</p>
         </div>
@@ -132,7 +132,7 @@ import { PROFILE } from "../../../data/profile";
       </div>
     </footer>
   `,
-  styleUrl: './footer.component.scss',
+  styleUrl: "./footer.component.scss",
 })
 export class FooterComponent {
   readonly name = PROFILE.name;
