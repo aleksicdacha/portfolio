@@ -358,21 +358,31 @@ phase_test() {
     _check() {
         local label="$1" result="$2"
         if [[ "${result}" == "pass" ]]; then
-            ok "${label}"; ((PASS++))
+            ok "${label}"; PASS=$((PASS+1))
         else
-            fail "${label}: ${result}"; ((FAIL++))
+            fail "${label}: ${result}"; FAIL=$((FAIL+1))
         fi
     }
 
     # ── Test 1: Connectivity ──────────────────────────────────────────────────
     header "Test 1: Service connectivity"
 
-    for label_port in "API:${PORT_API}" "Admin:${PORT_ADMIN}" "User:${PORT_USER}"; do
+    # API: check /v1/properties/public since root path has no route in NestJS
+    code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 \
+        "http://${SERVER_IP}:${PORT_API}/v1/properties/public?page=1&limit=1" 2>/dev/null || echo "000")
+    if [[ "${code}" =~ ^(2|3) ]]; then
+        _check "API site (port ${PORT_API})" "pass"
+    else
+        _check "API site (port ${PORT_API})" "HTTP ${code}"
+    fi
+
+    # Admin and User: accept any 2xx/3xx (307 redirect to locale/https is normal)
+    for label_port in "Admin:${PORT_ADMIN}" "User:${PORT_USER}"; do
         label="${label_port%%:*}"
         port="${label_port##*:}"
         code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 \
             "http://${SERVER_IP}:${port}/" 2>/dev/null || echo "000")
-        if [[ "${code}" =~ ^(200|301|302|304)$ ]]; then
+        if [[ "${code}" =~ ^(2|3) ]]; then
             _check "${label} site (port ${port})" "pass"
         else
             _check "${label} site (port ${port})" "HTTP ${code}"
@@ -382,7 +392,7 @@ phase_test() {
     # Portfolio (port 80)
     code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 \
         "http://${SERVER_IP}/" 2>/dev/null || echo "000")
-    if [[ "${code}" =~ ^(200|301|302)$ ]]; then
+    if [[ "${code}" =~ ^(2|3) ]]; then
         _check "Portfolio (port 80)" "pass"
     else
         _check "Portfolio (port 80)" "HTTP ${code}"
@@ -585,7 +595,7 @@ phase_test_health() {
     check_http() {
         local label="$1" url="$2"
         CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "${url}" 2>/dev/null || echo "000")
-        if [[ "${CODE}" =~ ^(200|301|302|304)$ ]]; then
+        if [[ "${CODE}" =~ ^(2|3) ]]; then
             ok "${label} HTTP ${CODE}"
         else
             fail "${label} HTTP ${CODE}"
