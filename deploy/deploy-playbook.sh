@@ -621,7 +621,21 @@ phase_test_health() {
 # =============================================================================
 phase_scan() {
     header "Triggering manual security scan on server"
-    warn "This takes 3-8 minutes. Output is streamed live."
+
+    step "Uploading/updating scan script on server..."
+    scp -o ConnectTimeout=10 \
+        "${SCRIPT_DIR}/server-hardening/daily-security-scan.sh" \
+        "${SERVER}:/usr/local/bin/daily-security-scan.sh"
+    ssh_exec "chmod +x /usr/local/bin/daily-security-scan.sh"
+    ok "Scan script installed at /usr/local/bin/daily-security-scan.sh"
+
+    # Also install the cron job if missing
+    if ! ssh_exec "test -f /etc/cron.d/daily-security-scan" 2>/dev/null; then
+        ssh_exec "printf '30 3 * * * root /usr/local/bin/daily-security-scan.sh\n' > /etc/cron.d/daily-security-scan && chmod 644 /etc/cron.d/daily-security-scan"
+        ok "Cron job installed (runs daily at 03:30)"
+    fi
+
+    warn "Running full scan — takes 3-8 minutes. Output streamed live."
     echo
     ssh_exec "/usr/local/bin/daily-security-scan.sh"
 }

@@ -26,7 +26,15 @@ set -euo pipefail
 ALERT_EMAIL="YOUR_EMAIL@gmail.com"       # where reports go
 SMTP_FROM="YOUR_GMAIL@gmail.com"         # must match msmtp 'from'
 MSMTP_CONF="/root/msmtp.conf"            # filled-in msmtp config (scp'd above)
-SCAN_SCRIPT_SRC="/root/daily-security-scan.sh"
+# Look for the scan script next to this setup script first, then fall back to /root/
+SCRIPT_SELF_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
+if [[ -f "${SCRIPT_SELF_DIR}/daily-security-scan.sh" ]]; then
+    SCAN_SCRIPT_SRC="${SCRIPT_SELF_DIR}/daily-security-scan.sh"
+elif [[ -f "/root/daily-security-scan.sh" ]]; then
+    SCAN_SCRIPT_SRC="/root/daily-security-scan.sh"
+else
+    SCAN_SCRIPT_SRC="/root/daily-security-scan.sh"  # will fail below with clear message
+fi
 # ─────────────────────────────────────────────────────────────────────────────
 
 RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; CYAN='\033[0;36m'; NC='\033[0m'
