@@ -24,10 +24,13 @@ findtime = 600
 # Allow 5 failures before banning (MaxAuthTries=3 in sshd means 2 actual attempts)
 maxretry = 5
 
-# Email alerts (optional — set to your email if you want notifications)
-# destemail = you@example.com
-# sender    = fail2ban@%(host)s
-# action    = %(action_mwl)s
+# Email alerts — ban notifications via msmtp (setup-security-monitoring.sh installs it)
+# !! EDIT: replace with your actual email !!
+destemail = YOUR_EMAIL@gmail.com
+sender    = fail2ban@%(host)s
+mta       = mail
+# action_mwl = ban + whois lookup + relevant log lines sent by email
+action    = %(action_mwl)s
 
 # ── SSH jail ──────────────────────────────────────────────────────────────────
 [sshd]
