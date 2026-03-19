@@ -23,8 +23,8 @@
 set -euo pipefail
 
 # ── !! EDIT THESE !! ──────────────────────────────────────────────────────────
-ALERT_EMAIL="YOUR_EMAIL@gmail.com"       # where reports go
-SMTP_FROM="YOUR_GMAIL@gmail.com"         # must match msmtp 'from'
+ALERT_EMAIL="aleksic.dacha@gmail.com"       # where reports go
+SMTP_FROM="aleksic.dacha@gmail.com"         # must match msmtp 'from'
 MSMTP_CONF="/root/msmtp.conf"            # filled-in msmtp config (scp'd above)
 # Look for the scan script next to this setup script first, then fall back to /root/
 SCRIPT_SELF_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"

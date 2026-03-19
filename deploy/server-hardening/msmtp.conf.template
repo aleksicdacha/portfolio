@@ -31,8 +31,8 @@ syslog         on
 account        gmail
 host           smtp.gmail.com
 port           587
-from           YOUR_GMAIL@gmail.com
-user           YOUR_GMAIL@gmail.com
+from           aleksic.dacha@gmail.com
+user           aleksic.dacha@gmail.com
 password       YOUR_APP_PASSWORD_HERE
 
 # ── Default account to use ────────────────────────────────────────────────────

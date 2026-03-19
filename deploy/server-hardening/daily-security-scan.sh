@@ -22,8 +22,8 @@
 # =============================================================================
 set -euo pipefail
 
-ALERT_EMAIL="YOUR_EMAIL@gmail.com"
-SMTP_FROM="YOUR_GMAIL@gmail.com"
+ALERT_EMAIL="aleksic.dacha@gmail.com"
+SMTP_FROM="aleksic.dacha@gmail.com"
 
 # ── Internal config ───────────────────────────────────────────────────────────
 HOST="$(hostname -f 2>/dev/null || hostname)"

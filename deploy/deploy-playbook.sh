@@ -83,7 +83,7 @@ phase_github_setup() {
     echo "  HETZNER_HOST              ${SERVER_IP}"
     echo "  HETZNER_USER              ${SERVER_USER}"
     echo "  HETZNER_SSH_PRIVATE_KEY   (contents of ~/.ssh/id_ed25519 — see below)"
-    echo "  ALERT_EMAIL_USER          your@gmail.com"
+    echo "  ALERT_EMAIL_USER          aleksic.dacha@gmail.com"
     echo "  ALERT_EMAIL_PASSWORD      Gmail App Password (NOT your real password)"
     echo "                            Get one at: https://myaccount.google.com/apppasswords"
     echo
