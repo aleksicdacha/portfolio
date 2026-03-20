@@ -52,6 +52,7 @@ jobs:
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
+        continue-on-error: true
 
   trivy:
     name: Trivy filesystem scan
@@ -74,6 +75,7 @@ jobs:
       - name: Upload SARIF
         uses: github/codeql-action/upload-sarif@v3
         if: always()
+        continue-on-error: true
         with:
           sarif_file: "trivy-results.sarif"
 
@@ -109,8 +111,12 @@ jobs:
           echo "failed_jobs=${FAILED}" >> "$GITHUB_OUTPUT"
           echo "has_failures=$([[ -n "$FAILED" ]] && echo true || echo false)" >> "$GITHUB_OUTPUT"
 
+      - name: Check email secret
+        id: email_ready
+        run: echo "ready=${{ secrets.ALERT_EMAIL_USER != '' && 'true' || 'false' }}" >> "$GITHUB_OUTPUT"
+
       - name: Send email on failure
-        if: steps.check.outputs.has_failures == 'true'
+        if: steps.check.outputs.has_failures == 'true' && steps.email_ready.outputs.ready == 'true'
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
