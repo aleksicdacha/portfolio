@@ -2,9 +2,10 @@
 # =============================================================================
 #  deploy-playbook.sh — Complete deploy, GitHub setup & verification playbook
 #
-#  Covers both projects on the single Hetzner server (46.224.231.217):
-#    - aleksicdacha/portfolio          (Angular SPA)
-#    - aleksicdacha/RealEstatesAPI-NestJS (NestJS API + Admin + User Next.js)
+#  Covers all three projects on the single Hetzner server (46.224.231.217):
+#    - aleksicdacha/portfolio             (Angular SPA)
+#    - aleksicdacha/RealEstatesAPI-NestJS  (NestJS API + Admin + User Next.js)
+#    - aleksicdacha/paper-rock-scissors   (Node.js WebSocket game, Docker Compose)
 #
 #  USAGE:
 #    ./deploy/deploy-playbook.sh <phase>
@@ -45,6 +46,9 @@ REALESTATE_REPO="https://github.com/aleksicdacha/RealEstatesAPI-NestJS"
 
 PORTFOLIO_REMOTE_DIR="/root/Portfolio"
 REALESTATE_REMOTE_DIR="/root/RealEstatesAPI-NestJS"
+RPS_REMOTE_DIR="/root/paper-rock-scissors"
+
+RPS_REPO="https://github.com/aleksicdacha/paper-rock-scissors.git"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
@@ -53,6 +57,7 @@ PROJECT_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 PORT_API=8090
 PORT_ADMIN=8081
 PORT_USER=8082
+PORT_RPS=8091
 
 # ── Colors ────────────────────────────────────────────────────────────────────
 RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; CYAN='\033[0;36m'
@@ -275,6 +280,10 @@ phase_deploy_nginx() {
     scp "${SCRIPT_DIR}/nginx/snippets/ssl-params.conf"         "${SERVER}:/etc/nginx/snippets/"
     scp "${SCRIPT_DIR}/nginx/sites-available/realestate.conf"  "${SERVER}:/etc/nginx/sites-available/"
     scp "${SCRIPT_DIR}/nginx/sites-available/portfolio.conf"   "${SERVER}:/etc/nginx/sites-available/"
+    scp "${SCRIPT_DIR}/nginx/sites-available/rps.conf"         "${SERVER}:/etc/nginx/sites-available/"
+
+    step "Ensuring rps.conf symlink exists in sites-enabled..."
+    ssh_exec "ln -sf /etc/nginx/sites-available/rps.conf /etc/nginx/sites-enabled/rps.conf"
 
     step "Testing nginx config on server..."
     ssh_exec "nginx -t"
@@ -331,6 +340,63 @@ phase_deploy_realestate() {
     else
         fail "API health check failed (HTTP ${HTTP_CODE})"
         echo "  Check logs: ./deploy/deploy-playbook.sh logs api"
+    fi
+}
+
+# =============================================================================
+#  PHASE: deploy-rps  (first-time + updates — always docker compose build)
+# =============================================================================
+phase_deploy_rps() {
+    header "Deploy: paper-rock-scissors → server"
+
+    if ssh_exec "test -d ${RPS_REMOTE_DIR}/.git" 2>/dev/null; then
+        step "Repo exists — pulling latest changes..."
+        ssh_exec "
+            set -e
+            cd ${RPS_REMOTE_DIR}
+            git fetch origin
+            git reset --hard origin/develop
+        "
+    else
+        step "First-time deploy — cloning repo..."
+        ssh_exec "git clone --branch develop ${RPS_REPO} ${RPS_REMOTE_DIR}"
+
+        step "Creating .env.production..."
+        warn "You must create ${RPS_REMOTE_DIR}/.env.production on the server."
+        echo
+        echo "  ssh ${SERVER}"
+        echo "  cat > ${RPS_REMOTE_DIR}/.env.production << 'EOF'"
+        echo "  MATCH_PREFIX=match:"
+        echo "  MATCH_TTL_SECONDS=3600"
+        echo "  RECONNECT_TIMEOUT_MS=30000"
+        echo "  CORS_ORIGIN=http://${SERVER_IP}:${PORT_RPS}"
+        echo "  EOF"
+        echo
+        read -r -p "  Press ENTER when .env.production is created on server..."
+
+        step "Opening firewall port ${PORT_RPS}..."
+        ssh_exec "ufw allow ${PORT_RPS}/tcp" || warn "ufw not available or rule already exists"
+    fi
+
+    step "Building and starting Docker Compose (production)..."
+    ssh_exec_timeout 600 "
+        set -e
+        cd ${RPS_REMOTE_DIR}
+        docker compose -f docker-compose.prod.yml build
+        docker compose -f docker-compose.prod.yml up -d
+        sleep 10
+        docker compose -f docker-compose.prod.yml ps
+    "
+
+    step "Waiting for health check..."
+    sleep 8
+
+    HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 \
+        "http://${SERVER_IP}:${PORT_RPS}/" || echo "000")
+    if [[ "${HTTP_CODE}" =~ ^(2|3) ]]; then
+        ok "RPS health check passed (HTTP ${HTTP_CODE}) → http://${SERVER_IP}:${PORT_RPS}"
+    else
+        fail "RPS health check: HTTP ${HTTP_CODE} — check logs: ./deploy/deploy-playbook.sh logs rps-server"
     fi
 }
 
@@ -606,10 +672,15 @@ phase_test_health() {
     check_http "Portfolio"        "http://${SERVER_IP}/"
     check_http "Admin panel"      "http://${SERVER_IP}:${PORT_ADMIN}/"
     check_http "User website"     "http://${SERVER_IP}:${PORT_USER}/"
+    check_http "RPS game"         "http://${SERVER_IP}:${PORT_RPS}/"
 
     echo
-    info "Docker containers:"
+    info "Docker containers (RealEstatesAPI):"
     ssh_exec "docker compose -f ${REALESTATE_REMOTE_DIR}/docker-compose.prod.yml ps" 2>/dev/null || warn "Could not reach server"
+
+    echo
+    info "Docker containers (RPS):"
+    ssh_exec "docker compose -f ${RPS_REMOTE_DIR}/docker-compose.prod.yml ps" 2>/dev/null || warn "RPS not deployed yet"
 
     echo
     info "PM2 processes:"
@@ -646,8 +717,12 @@ phase_scan() {
 phase_status() {
     header "Live server status — ${SERVER_IP}"
 
-    step "Docker containers:"
+    step "Docker containers (RealEstatesAPI):"
     ssh_exec "docker compose -f ${REALESTATE_REMOTE_DIR}/docker-compose.prod.yml ps" || true
+
+    echo
+    step "Docker containers (RPS):"
+    ssh_exec "docker compose -f ${RPS_REMOTE_DIR}/docker-compose.prod.yml ps" 2>/dev/null || warn "RPS not deployed yet"
 
     echo
     step "PM2 processes:"
@@ -686,13 +761,17 @@ phase_logs() {
             ssh_exec "docker compose -f ${REALESTATE_REMOTE_DIR}/docker-compose.prod.yml logs -f user-web" ;;
         nginx)
             ssh_exec "tail -f /var/log/nginx/realestate_api_access.log /var/log/nginx/error.log" ;;
+        rps-server)
+            ssh_exec "docker compose -f ${RPS_REMOTE_DIR}/docker-compose.prod.yml logs -f rps_server_prod" ;;
+        rps-client)
+            ssh_exec "docker compose -f ${RPS_REMOTE_DIR}/docker-compose.prod.yml logs -f rps_client_prod" ;;
         scan)
             ssh_exec "tail -f /var/log/security/scan-$(date +%F).log 2>/dev/null || ls /var/log/security/" ;;
         fail2ban)
             ssh_exec "tail -f /var/log/fail2ban.log" ;;
         *)
             warn "Unknown log target: ${target}"
-            echo "  Available: api | admin | user | nginx | scan | fail2ban"
+            echo "  Available: api | admin | user | nginx | rps-server | rps-client | scan | fail2ban"
             exit 1
             ;;
     esac
@@ -714,6 +793,7 @@ phase_help() {
     printf "  ${CYAN}%-22s${NC} %s\n" "deploy-portfolio"   "Build + rsync Angular, reload nginx"
     printf "  ${CYAN}%-22s${NC} %s\n" "deploy-nginx"       "Sync nginx configs, test + reload"
     printf "  ${CYAN}%-22s${NC} %s\n" "deploy-realestate"  "Manual deploy (normally auto via Actions)"
+    printf "  ${CYAN}%-22s${NC} %s\n" "deploy-rps"         "Deploy paper-rock-scissors (first-time + updates)"
     printf "  ${CYAN}%-22s${NC} %s\n" "run-migrations"     "Run TypeORM migrations in API container"
     printf "  ${CYAN}%-22s${NC} %s\n" "test"               "Full verification suite (all tests)"
     printf "  ${CYAN}%-22s${NC} %s\n" "test-headers"       "HTTP security headers only"
@@ -722,7 +802,7 @@ phase_help() {
     printf "  ${CYAN}%-22s${NC} %s\n" "test-health"        "All app health endpoints"
     printf "  ${CYAN}%-22s${NC} %s\n" "scan"               "Trigger manual security scan on server"
     printf "  ${CYAN}%-22s${NC} %s\n" "status"             "Live status of all services"
-    printf "  ${CYAN}%-22s${NC} %s\n" "logs <target>"      "Tail live logs: api|admin|user|nginx|scan|fail2ban"
+    printf "  ${CYAN}%-22s${NC} %s\n" "logs <target>"      "Tail live logs: api|admin|user|nginx|rps-server|rps-client|scan|fail2ban"
     echo
     echo -e "${BOLD}EXAMPLES:${NC}"
     echo "  ./deploy/deploy-playbook.sh github-setup"
@@ -732,8 +812,7 @@ phase_help() {
     echo "  ./deploy/deploy-playbook.sh test"
     echo "  ./deploy/deploy-playbook.sh logs api"
     echo "  ./deploy/deploy-playbook.sh logs nginx"
-    echo "  ./deploy/deploy-playbook.sh status"
-    echo "  ./deploy/deploy-playbook.sh scan"
+    echo "  ./deploy/deploy-playbook.sh logs rps-server"
     echo
     echo -e "${BOLD}NORMAL WORKFLOW (day-to-day):${NC}"
     echo "  git push origin master          → auto-deploys RealEstatesAPI via GitHub Actions"
@@ -753,6 +832,7 @@ case "${PHASE}" in
     deploy-portfolio)   phase_deploy_portfolio ;;
     deploy-nginx)       phase_deploy_nginx ;;
     deploy-realestate)  phase_deploy_realestate ;;
+    deploy-rps)         phase_deploy_rps ;;
     run-migrations)     phase_run_migrations ;;
     test)               phase_test ;;
     test-headers)       phase_test_headers ;;
