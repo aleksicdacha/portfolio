@@ -72,7 +72,7 @@ step()    { echo -e "${BOLD}  $*${NC}"; }
 
 # ── SSH helper ────────────────────────────────────────────────────────────────
 ssh_exec() { ssh -o ConnectTimeout=10 "${SERVER}" "$@"; }
-ssh_exec_timeout() { local t=$1; shift; ssh -o ConnectTimeout="${t}" "${SERVER}" "$@"; }
+ssh_exec_timeout() { local t=$1; shift; ssh -o ConnectTimeout="${t}" -o ServerAliveInterval=30 -o ServerAliveCountMax=20 "${SERVER}" "$@"; }
 
 # =============================================================================
 #  PHASE: github-setup
@@ -379,10 +379,11 @@ phase_deploy_rps() {
     fi
 
     step "Building and starting Docker Compose (production)..."
-    ssh_exec_timeout 600 "
+    ssh_exec_timeout 1800 "
         set -e
         cd ${RPS_REMOTE_DIR}
-        docker compose -f docker-compose.prod.yml build
+        docker compose -f docker-compose.prod.yml build server
+        docker compose -f docker-compose.prod.yml build client
         docker compose -f docker-compose.prod.yml up -d
         sleep 10
         docker compose -f docker-compose.prod.yml ps
