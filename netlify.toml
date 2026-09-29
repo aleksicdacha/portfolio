@@ -28,6 +28,14 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# CV is replaced in place at a stable URL, so it must never be cached for a year
+# (an immutable response would hide a new CV from returning visitors). Placed after
+# the /assets/* rule so it takes precedence for this path.
+[[headers]]
+  for = "/assets/cv/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
 [[headers]]
   for = "/*.js"
   [headers.values]
