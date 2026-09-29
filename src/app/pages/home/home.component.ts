@@ -209,7 +209,7 @@ import { PROFILE } from "../../data/profile";
       </div>
     </section>
   `,
-  styleUrl: './home.component.scss',
+  styleUrl: "./home.component.scss",
 })
 export class HomeComponent implements AfterViewInit {
   private el = inject(ElementRef);
@@ -221,7 +221,9 @@ export class HomeComponent implements AfterViewInit {
   readonly cvUrl = PROFILE.cvUrl;
   readonly quickFacts = PROFILE.quickFacts;
   readonly socialLinks = PROFILE.socialLinks;
-  readonly featuredProjects = PROFILE.projects.filter((p) => p.featured);
+  readonly featuredProjects = PROFILE.projects
+    .filter((p) => p.featured)
+    .slice(0, 3);
 
   readonly stats = [
     { value: "20+", label: "Years Experience" },

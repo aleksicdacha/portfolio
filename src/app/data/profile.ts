@@ -201,7 +201,7 @@ export const PROFILE: Profile = {
       company: "Independent",
       liveUrl: undefined,
       repoUrl: undefined, // repo is private
-      imageUrl: undefined, // TODO: add screenshot
+      imageUrl: "/assets/images/projects/realestate.png",
       tech: [
         "TypeScript",
         "NestJS",
