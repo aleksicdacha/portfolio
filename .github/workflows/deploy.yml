@@ -43,17 +43,36 @@ jobs:
           ssh-keyscan -H "${{ secrets.HETZNER_HOST }}" >> ~/.ssh/known_hosts
 
       # ── 6. Deploy via rsync ─────────────────────────────────────────────────
+      # nginx serves /root/Portfolio as its document root (see
+      # deploy/nginx/sites-available/portfolio.conf), so the build has to land
+      # there directly. Uploading into a dist/ subdirectory leaves the live site
+      # untouched — that is exactly how this job went green while serving a
+      # months-old build.
       - name: Deploy to server
         run: |
           ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no \
             ${{ secrets.HETZNER_USER }}@${{ secrets.HETZNER_HOST }} \
-            "mkdir -p /root/Portfolio/dist/portfolio/browser"
-          rsync -azv --delete \
+            "mkdir -p /root/Portfolio"
+          rsync -azv --delete --exclude=.git \
             -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
             dist/portfolio/browser/ \
-            ${{ secrets.HETZNER_USER }}@${{ secrets.HETZNER_HOST }}:/root/Portfolio/dist/portfolio/browser/
+            ${{ secrets.HETZNER_USER }}@${{ secrets.HETZNER_HOST }}:/root/Portfolio/
 
-      # ── 7. Fix permissions & reload nginx ───────────────────────────────────
+      # ── 7. Verify the upload landed in the served directory ─────────────────
+      - name: Verify deployment
+        run: |
+          local_hash=$(sha256sum dist/portfolio/browser/index.html | awk '{print $1}')
+          remote_hash=$(ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no \
+            ${{ secrets.HETZNER_USER }}@${{ secrets.HETZNER_HOST }} \
+            "sha256sum /root/Portfolio/index.html" | awk '{print $1}')
+          echo "local:  $local_hash"
+          echo "remote: $remote_hash"
+          [ "$local_hash" = "$remote_hash" ] || {
+            echo "::error::Deployed index.html does not match the build — is nginx serving a different directory?"
+            exit 1
+          }
+
+      # ── 8. Fix permissions & reload nginx ───────────────────────────────────
       - name: Fix permissions and reload nginx
         run: |
           ssh -i ~/.ssh/id_ed25519 \
