@@ -9,9 +9,9 @@ export class SeoService {
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
 
-  readonly baseTitle = "Dalibor Aleksic – Full-Stack Developer";
+  readonly baseTitle = "Dalibor Aleksic – Senior Full-Stack & AI Engineer";
   readonly baseDescription =
-    "Experienced Full-Stack Developer with 20+ years of expertise in Angular, React, Node.js, PHP, and modern web technologies.";
+    "Senior Full-Stack & AI Engineer with 20+ years building scalable web platforms in TypeScript, Node.js/NestJS, Angular, React and PostgreSQL — now focused on agentic AI and LLM integration.";
   readonly baseUrl = "https://aleksicdacha.dev";
 
   init(): void {

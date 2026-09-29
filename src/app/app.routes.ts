@@ -5,11 +5,11 @@ export const routes: Routes = [
     path: "",
     loadComponent: () =>
       import("./pages/home/home.component").then((m) => m.HomeComponent),
-    title: "Dalibor Aleksic – Full-Stack Developer",
+    title: "Dalibor Aleksic – Senior Full-Stack & AI Engineer",
     data: {
       description:
-        "Experienced Full-Stack Developer with 20+ years of expertise in Angular, React, Node.js, PHP, and modern web technologies.",
-      ogTitle: "Dalibor Aleksic – Full-Stack Developer",
+        "Senior Full-Stack & AI Engineer with 20+ years building scalable web platforms in TypeScript, Node.js/NestJS, Angular, React and PostgreSQL — now focused on agentic AI and LLM integration.",
+      ogTitle: "Dalibor Aleksic – Senior Full-Stack & AI Engineer",
     },
   },
   {
@@ -21,7 +21,7 @@ export const routes: Routes = [
     title: "Projects – Dalibor Aleksic",
     data: {
       description:
-        "Portfolio of projects built by Dalibor Aleksic – web apps, platforms, and tools across diverse industries.",
+        "Portfolio of Dalibor Aleksic – full-stack platforms, AI-powered tools, and web applications across sports media, healthcare, telecom, and real estate.",
       ogTitle: "Projects – Dalibor Aleksic",
     },
   },
@@ -43,7 +43,7 @@ export const routes: Routes = [
     title: "Experience – Dalibor Aleksic",
     data: {
       description:
-        "20+ years of full-stack development experience across Serbia, Denmark, and Switzerland.",
+        "20+ years of full-stack engineering across Serbia, Denmark, Switzerland and the US — from telecom and sports media to agentic AI.",
       ogTitle: "Experience – Dalibor Aleksic",
     },
   },
@@ -54,7 +54,7 @@ export const routes: Routes = [
     title: "About – Dalibor Aleksic",
     data: {
       description:
-        "About Dalibor Aleksic – Full-Stack Developer based in Nis, Serbia.",
+        "About Dalibor Aleksic – Senior Full-Stack & AI Engineer based in Nis, Serbia.",
       ogTitle: "About – Dalibor Aleksic",
     },
   },

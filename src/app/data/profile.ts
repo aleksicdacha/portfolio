@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────────────────────────────────────
 //  SINGLE SOURCE OF TRUTH  –  update this file to update all portfolio content
-//  Generated from CV + LinkedIn: https://www.linkedin.com/in/aleksicdacha42a29b111/
+//  Generated from CV + LinkedIn: https://www.linkedin.com/in/dalibor-aleksic
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { Profile } from "./profile.model";
@@ -8,9 +8,9 @@ import { Profile } from "./profile.model";
 export const PROFILE: Profile = {
   // ── Identity ──────────────────────────────────────────────────────────────
   name: "Dalibor Aleksić",
-  headline: "Full-Stack Developer",
+  headline: "Senior Full-Stack & AI Engineer",
   tagline:
-    "Building scalable web products at the intersection of great engineering and clean design.",
+    "Building scalable web platforms and agentic AI systems — from architecture through production.",
   email: "aleksic.dacha@gmail.com",
   phone: "+381 (069) 2924776",
   location: "Nis, Serbia",
@@ -24,12 +24,12 @@ export const PROFILE: Profile = {
   socialLinks: [
     {
       label: "LinkedIn",
-      url: "https://www.linkedin.com/in/aleksicdacha42a29b111/",
+      url: "https://www.linkedin.com/in/dalibor-aleksic",
       icon: "linkedin",
     },
     {
       label: "GitHub",
-      url: "https://github.com/aleksicdacha", // TODO: confirm GitHub username
+      url: "https://github.com/aleksicdacha",
       icon: "github",
     },
     {
@@ -40,32 +40,58 @@ export const PROFILE: Profile = {
   ],
 
   // ── Summary ───────────────────────────────────────────────────────────────
-  summary: `Experienced Full-Stack Web Developer with over two decades of experience in web and software development, spanning freelancing and in-house roles. Skilled in creating complex front-end and back-end solutions across diverse industries, from telecommunications and online gaming to health services and sports media. Proficient in a broad range of programming languages and technologies — Angular, React, Node.js, PHP, PostgreSQL — with a commitment to continuous learning and innovation.`,
+  summary: `Senior Full-Stack Engineer with 20+ years designing and delivering scalable web platforms across sports media, healthcare, telecom, loyalty, and real estate. Expert in TypeScript, Node.js/NestJS, Angular/React/Next.js and PostgreSQL, with hands-on cloud CI/CD and production ownership of high-traffic systems serving millions of users. Delivered agentic AI and LLM integrations in production, with a track record of measurable impact on performance, delivery speed, and reliability.`,
 
   // ── Quick Facts (shown in hero) ────────────────────────────────────────────
   quickFacts: [
     { label: "Location", value: "Nis, Serbia" },
     { label: "Experience", value: "20+ Years" },
-    { label: "Stack", value: "Angular · React · Node · PHP" },
+    { label: "Stack", value: "TypeScript · Node/NestJS · Angular/React" },
+    { label: "AI", value: "Agentic AI · LLM Orchestration" },
     { label: "Availability", value: "Open to opportunities" },
   ],
 
   // ── Experience ────────────────────────────────────────────────────────────
   experience: [
     {
+      company: "Independent Consultant",
+      location: "Nis, Serbia (Remote)",
+      role: "Senior Software Engineer & Consultant",
+      startDate: "September 2025",
+      endDate: "Present",
+      summary:
+        "Independent full-stack and AI engineering consultancy, owning delivery from architecture to production.",
+      achievements: [
+        "Delivered a full-stack real estate platform end-to-end (NestJS + Next.js 15, Turborepo monorepo), owning architecture, API design, CI/CD, E2E testing, and production deployment.",
+        "Shipped a multilingual Google Gemini AI chatbot, custom TypeORM repositories, JWT auth with RBAC, Redis caching, and a sanitised public API kept separate from the admin API.",
+      ],
+      tech: [
+        "TypeScript",
+        "NestJS",
+        "Next.js 15",
+        "PostgreSQL",
+        "TypeORM",
+        "Redis",
+        "Docker",
+        "Google Gemini",
+        "Playwright",
+        "Turborepo",
+      ],
+    },
+    {
       company: "Union Studio",
       companyUrl: "https://www.olla.me/",
-      location: "Serbia / US (Remote)",
+      location: "Serbia / United States (Remote)",
       role: "Senior Software Engineer",
       startDate: "April 2025",
       endDate: "August 2025",
       summary:
-        "Frontend development for multiple health-support services targeting Android and iOS.",
+        "Frontend development for multiple health-support web and mobile applications.",
       achievements: [
-        "Developed Angular (v19+) and Ionic Framework applications for multi-platform mobile health services.",
-        "Integrated CI/CD pipelines using Azure DevOps Services for code management, testing, and deployment.",
-        "Delivered scalable, maintainable codebases guided by strong software infrastructure and design principles.",
-        "Ensured responsive, accessible, and high-performance UI across mobile and web platforms.",
+        "Led frontend development for multiple health-support web and mobile applications (Android/iOS) using Angular v19+ and Ionic Framework.",
+        "Delivered responsive, accessible cross-platform UI components, reducing reported UX issues by ~30% during QA cycles.",
+        "Integrated Azure DevOps CI/CD pipelines (build, test, deploy), increasing release cadence.",
+        "Applied SOLID principles and component-driven architecture across multiple product teams.",
       ],
       tech: [
         "Angular",
@@ -81,17 +107,19 @@ export const PROFILE: Profile = {
       company: "Better Collective",
       companyUrl: "https://www.bettercollective.com/",
       location: "Denmark (Remote)",
-      role: "Full-Stack Web Developer / Senior Web Developer",
+      role: "Senior Software Engineer",
       startDate: "November 2018",
       endDate: "November 2024",
       summary:
-        "Built high-profile sports media platforms and AI-powered content generation tools.",
+        "Delivered high-traffic sports media platforms and AI-powered editorial tooling for a global sports media group.",
       achievements: [
-        "Developed and maintained AI-powered tools for automated sports content generation using CrewAI and LLM agents.",
-        "Complete front-end revamp of Vegas Insider (vegasinsider.com) — a top US sports-betting platform — using Web Components.",
+        "Designed and shipped AI-powered content generation tools using the CrewAI multi-agent framework and LLM APIs, cutting manual editorial workload by ~60% on target workflows.",
+        "Full-stack revamp of Vegas Insider (vegasinsider.com), a top-tier US sports-betting platform with millions of monthly active users — owning the PHP/Symfony backend and the TypeScript Web Components frontend architecture.",
         "Architected back-end services in PHP (Symfony/Laravel) and Node.js for high-traffic sports media sites.",
-        "Made key architectural and design decisions; mentored junior developers and guided internship programs.",
-        "Worked across a portfolio of high-traffic, SEO-critical sports media properties.",
+        "Drove architectural and technical design decisions across a team of 8+ engineers; conducted code reviews and maintained engineering standards.",
+        "Mentored 3+ junior developers and guided 2 internship programs to completion.",
+        "Integrated GraphQL APIs and optimised complex PostgreSQL queries, improving performance up to 2x on data-intensive pages.",
+        "Introduced automated testing (Jest, Playwright), reaching >80% coverage on critical user flows.",
       ],
       tech: [
         "Angular",
@@ -106,23 +134,25 @@ export const PROFILE: Profile = {
         "PostgreSQL",
         "GraphQL",
         "CrewAI",
+        "Python",
       ],
     },
     {
       company: "HORISEN AG",
       companyUrl: "https://www.horisen.com/",
-      location: "Switzerland",
+      location: "Switzerland / Serbia",
       role: "Full-Stack Web Developer",
       startDate: "2015",
       endDate: "2018",
       summary:
-        "Built enterprise platforms and white-label products for telecom and gaming clients.",
+        "Built enterprise platforms and white-label products for telecom and gaming clients across Europe.",
       achievements: [
-        "Developed and maintained HORISEN-pro — a comprehensive enterprise messaging platform.",
-        "Built iCard loyalty program platform and an SMS newsletter marketing platform.",
+        "Developed and maintained HORISEN-pro — a comprehensive enterprise messaging platform used by telecom and marketing clients across Europe.",
+        "Built iCard loyalty program platform and an SMS newsletter marketing platform, serving thousands of end users.",
         "Developed security and account administration apps (front-end and back-end).",
         "Delivered Nestlé-Frisco VTool Marketing — an admin app for targeted promotional campaigns.",
         "Built white-label software and online gaming apps for clients including Orange.pl and Ringier Axel Springer.",
+        "Implemented security hardening (XSS prevention, CSRF protection, secure session management) across front-end and back-end applications.",
       ],
       tech: ["PHP", "Zend Framework", "JavaScript", "AngularJS", "MySQL"],
     },
@@ -130,7 +160,7 @@ export const PROFILE: Profile = {
       company: "Olymp Real-Estates",
       companyUrl: "https://www.olymp-nekretnine.co.rs",
       location: "Nis, Serbia",
-      role: "Co-owner & Web Developer",
+      role: "Co-Founder & Full-Stack Web Developer",
       startDate: "2009",
       endDate: "2015",
       summary: "Co-founded and operated a real estate management web portal.",
@@ -161,6 +191,34 @@ export const PROFILE: Profile = {
   // ── Projects ──────────────────────────────────────────────────────────────
   projects: [
     {
+      slug: "real-estate-api-platform",
+      title: "Real Estate API Platform",
+      description:
+        "Full-stack Turborepo monorepo: a NestJS REST API with Next.js 15 admin and public apps.",
+      longDescription:
+        "Production real estate platform delivered end to end — a NestJS REST API with custom TypeORM repositories, a multilingual Google Gemini AI chatbot with live agent handover, JWT auth with RBAC, and a sanitised public API kept separate from the admin API for security. Backed by Redis caching and shipped with Docker Compose, GitHub Actions CI/CD, and Playwright E2E coverage.",
+      role: "Architect & Full-Stack Engineer",
+      company: "Independent",
+      liveUrl: undefined,
+      repoUrl: undefined, // repo is private
+      imageUrl: undefined, // TODO: add screenshot
+      tech: [
+        "TypeScript",
+        "NestJS",
+        "Next.js 15",
+        "PostgreSQL",
+        "TypeORM",
+        "Redis",
+        "Docker",
+        "Google Gemini",
+        "Playwright",
+        "Turborepo",
+      ],
+      tags: ["fullstack", "backend", "ai", "real-estate", "typescript"],
+      featured: true,
+      year: 2026,
+    },
+    {
       slug: "olla-health",
       title: "Olla Health App",
       description:
@@ -182,10 +240,10 @@ export const PROFILE: Profile = {
       slug: "vegas-insider",
       title: "Vegas Insider Revamp",
       description:
-        "Complete front-end revamp of a top US sports-betting platform using Web Components.",
+        "Front-end architecture overhaul of VegasInsider.com, a top-tier US sports-betting platform with millions of monthly active users.",
       longDescription:
-        "Led the complete front-end architecture overhaul of VegasInsider.com — one of the most visited sports-betting platforms in the US. Implemented a modern Web Components (Stencil) architecture, coupled with a PHP backend rebuild, delivering improved performance and a drastically improved user experience.",
-      role: "Full-Stack Web Developer",
+        "Led the complete front-end architecture overhaul of VegasInsider.com — one of the most visited sports-betting platforms in the US, with millions of monthly active users. Implemented a modern Web Components (Stencil) architecture, coupled with a PHP backend rebuild, delivering improved performance and a drastically improved user experience.",
+      role: "Senior Software Engineer",
       company: "Better Collective",
       companyUrl: "https://www.bettercollective.com/",
       liveUrl: "https://www.vegasinsider.com/",
@@ -202,8 +260,8 @@ export const PROFILE: Profile = {
       description:
         "AI-powered content generation pipeline for automated sports articles using CrewAI and LLM agents.",
       longDescription:
-        "Designed and developed an AI-powered content generation system that autonomously produces high-quality sports editorial content. Built using CrewAI multi-agent framework with custom prompt engineering and editorial validation pipelines.",
-      role: "Full-Stack Web Developer",
+        "Designed and developed an AI-powered content generation system using the CrewAI multi-agent framework with custom prompt engineering and editorial validation pipelines, cutting manual editorial workload by ~60% on target workflows.",
+      role: "Senior Software Engineer",
       company: "Better Collective",
       companyUrl: "https://www.bettercollective.com/",
       liveUrl: "https://www.bettercollective.com/",
@@ -239,7 +297,7 @@ export const PROFILE: Profile = {
         "Full real estate listing and management web portal built from the ground up.",
       longDescription:
         "Co-founded and fully developed a real estate management portal handling property listings, search, agency management, and digital marketing automation. Handled full deployment, maintenance, and SEO strategy.",
-      role: "Co-owner & Web Developer",
+      role: "Co-Founder & Full-Stack Web Developer",
       company: "Olymp Real-Estates",
       companyUrl: "https://www.olymp-nekretnine.co.rs",
       liveUrl: "https://www.olymp-nekretnine.co.rs",
@@ -259,8 +317,10 @@ export const PROFILE: Profile = {
       category: "frontend",
       skills: [
         "TypeScript",
-        "Angular (v2–v19)",
-        "React / Next.js",
+        "Angular (v1–v21)",
+        "React",
+        "Next.js 15",
+        "Ionic",
         "AngularJS",
         "Web Components / Stencil",
         "HTML5",
@@ -276,34 +336,44 @@ export const PROFILE: Profile = {
       category: "backend",
       skills: [
         "Node.js",
-        "Express",
         "NestJS",
+        "Express",
+        "FastAPI",
         "PHP",
         "Symfony",
-        "Python",
         "Laravel",
         "CodeIgniter",
         "Zend Framework",
+        "Python",
         "REST APIs",
         "GraphQL",
         "WebSockets",
+        "OpenAPI / Swagger",
         "OAuth / JWT",
       ],
     },
     {
       label: "Databases",
       category: "database",
-      skills: ["PostgreSQL", "MySQL", "NoSQL", "Redis (data caching)"],
+      skills: [
+        "PostgreSQL",
+        "MySQL",
+        "MongoDB",
+        "Redis (data caching)",
+        "TypeORM",
+        "Prisma",
+      ],
     },
     {
       label: "DevOps & Cloud",
       category: "devops",
       skills: [
         "Docker",
-        "Azure DevOps",
+        "Docker Compose",
         "GitHub Actions",
-        "AWS Amplify",
+        "Azure DevOps",
         "CI/CD Pipelines",
+        "AWS Amplify",
         "Nginx",
         "Linux (Ubuntu)",
         "Bash / Zsh scripting",
@@ -327,17 +397,27 @@ export const PROFILE: Profile = {
       ],
     },
     {
-      label: "AI & Emerging",
+      label: "AI & Agentic",
       category: "tools",
-      skills: ["CrewAI", "LLM Agent Frameworks", "Prompt Engineering"],
+      skills: [
+        "CrewAI (Multi-Agent)",
+        "OpenAI API",
+        "Google Gemini",
+        "Claude",
+        "Prompt Engineering",
+        "Tool Calling",
+        "LLM Workflow Orchestration",
+      ],
     },
     {
       label: "Performance & Architecture",
       category: "performance",
       skills: [
+        "Core Web Vitals",
         "Code Splitting",
         "Lazy Loading",
         "Asset Optimization",
+        "Caching / CDN",
         "Lighthouse / DevTools",
         "Browser Rendering",
         "Software Architecture",
@@ -348,6 +428,7 @@ export const PROFILE: Profile = {
       label: "Security",
       category: "security",
       skills: [
+        "OWASP Top 10",
         "Input Validation / Encoding",
         "CSRF Protection",
         "Secure Headers / CORS",
@@ -395,11 +476,11 @@ export const PROFILE: Profile = {
   nowNext: [
     {
       label: "Now",
-      text: "Focused on building polished Angular and React applications, exploring AI-augmented development workflows and cross-platform mobile with Ionic.",
+      text: "Independent consulting and end-to-end product delivery — NestJS and Next.js 15 platforms, agentic AI features, and production ownership from architecture through deployment.",
     },
     {
       label: "Next",
-      text: "Deepening expertise in LLM agent orchestration, production-grade NestJS backends, and contributing to open-source tooling.",
+      text: "Going deeper into LLM agent orchestration and tool calling, and bringing more agentic workflows into production systems.",
     },
   ],
 };
