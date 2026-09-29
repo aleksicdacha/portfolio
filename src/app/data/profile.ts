@@ -15,7 +15,9 @@ export const PROFILE: Profile = {
   phone: "+381 (069) 2924776",
   location: "Nis, Serbia",
   timezone: "CET (UTC+1)",
-  cvUrl: "/assets/cv/cv.pdf", // TODO: drop your CV PDF in src/assets/cv/
+  // The query busts caches holding an older immutable copy of the CV; netlify.toml
+  // serves /assets/cv/* with must-revalidate, so no further bumps are needed.
+  cvUrl: "/assets/cv/cv.pdf?v=2026-09",
   headshot: "/assets/images/me.png", // TODO: add URL e.g. '/assets/images/headshot.jpg'
 
   // ── Social Links ──────────────────────────────────────────────────────────
